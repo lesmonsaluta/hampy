@@ -1,0 +1,36 @@
+{
+    "name": "hampy",
+    "build" :{"dockerfile": "../Dockerfile"},
+    "workspaceFolder": "/app",
+    "forwardPorts": [3000],
+    "mounts": ["source=${localWorkspaceFolder},target=/app,type=bind"],
+	"customizations": {
+        "vscode": {
+            "extensions": [
+                "ms-azuretools.vscode-docker",
+                "formulahendry.docker-extension-pack",
+                "henriiik.docker-linter",
+                "GitHub.vscode-pull-request-github",
+                "oderwat.indent-rainbow",
+                "SirTori.indenticator",
+                "Rubymaniac.vscode-paste-and-indent",
+                "felipecaputo.git-project-manager",
+                "xabikos.JavaScriptSnippets",
+                "mgmcdermott.vscode-language-babel",
+                "ms-vscode.vscode-typescript-next",
+                "ms-vscode.js-debug-nightly",
+                "aeschli.vscode-css-formatter",
+                "Zignd.html-css-class-completion",
+                "ecmel.vscode-html-css",
+                "pranaygp.vscode-css-peek",
+                "sidthesloth.html5-boilerplate",
+                "ritwickdey.LiveServer",
+                "bradlc.vscode-tailwindcss",
+                "austenc.tailwind-docs",
+                "sudoaugustin.tailwindcss-transpiler",
+                "andrewmcodes.tailwindcss-extension-pack"
+            ]
+        }
+    },
+    "shutdownAction": "stopContainer"
+}
