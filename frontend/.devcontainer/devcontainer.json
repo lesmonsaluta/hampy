@@ -28,7 +28,8 @@
                 "bradlc.vscode-tailwindcss",
                 "austenc.tailwind-docs",
                 "sudoaugustin.tailwindcss-transpiler",
-                "andrewmcodes.tailwindcss-extension-pack"
+                "andrewmcodes.tailwindcss-extension-pack",
+                "esbenp.prettier-vscode"
             ]
         }
     },
