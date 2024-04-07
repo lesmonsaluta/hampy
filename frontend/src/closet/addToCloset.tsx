@@ -1,12 +1,10 @@
 import Header from '../homescreen/header.tsx'
-import blank from '../assets/blank_img.png'
 import AddToClosetTagComponent from './addToClosetTagComponent.tsx'
 
 
-
 function addToCloset() {
-    const tags = ['Brand', 'Color', 'Type']
-
+    // get tag preferences from tanstack
+    const tags = ['Brand', 'Color', 'Type', 'Purchase Date']
 
     return (
         <>
@@ -24,14 +22,10 @@ function addToCloset() {
                     </div>
 
                     {/* dynamically changing, 
-                    if portrait, 2x2 image then rows underneath
+                    if portrait, 2x2 image then scrollable rows underneath
                     if landscape, 2x2 image on left, scrollable on right*/}
                     <div>
-                        {/* Image div */}
-                        <div className="flex justify-center items-center m-4">
-                            {/* image prompt */}
-                            <img src={blank} className='rounded-xl '/>
-                        </div>
+
 
                         {/* tags area */}
                         <div className='m-4'>

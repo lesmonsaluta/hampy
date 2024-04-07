@@ -1,77 +1,93 @@
-import { zodResolver } from "@hookform/resolvers/zod"
-import { useForm } from "react-hook-form"
-import { z } from "zod"
-
-import { Button } from "@/components/ui/button"
+import React, { useCallback } from 'react';
+import { useForm } from "react-hook-form";
+import * as z from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
-  FormMessage,
-} from "@/components/ui/form"
-import { Input } from "@/components/ui/input"
- 
-const formSchema = z.object({
-  username: z.string().min(2).max(50),
-})
+} from "@/components/ui/form";
+
+import blank from '../assets/blank_img.png'
 
 interface AddToClosetTagComponentProps {
     tags: string[];
 }
 
-function addToClosetTagComponent({ tags }: AddToClosetTagComponentProps) {
-    // 1. Define your form.
-    const form = useForm<z.infer<typeof formSchema>>({
-        resolver: zodResolver(formSchema),
-        defaultValues: {
-        username: "",
-        },
-    })
- 
-    // 2. Define a submit handler.
-    function onSubmit(values: z.infer<typeof formSchema>) {
-        // Do something with the form values.
-        // ✅ This will be type-safe and validated.
-        console.log(values)
-    }
-
-
-    function closetFormItem(tag : string) {
-        return (
-            <FormField
-                control={form.control}
-                name="username"
-                render={({ field }) => (
+// Memoized Form Field to prevent unnecessary re-renders
+const MemoizedFormField = React.memo(({ tag, control }: { tag: string; control: any }) => {
+    console.log("form field rerender")
+    return (
+        <FormField
+            key={tag}
+            control={control}
+            name={tag}
+            render={({ field }) => (
                 <FormItem>
                     <FormLabel>{tag}</FormLabel>
                     <FormControl>
-                    <Input placeholder="" {...field} />
+                        <Input 
+                            placeholder={tag}
+                            {...field}
+                        />
                     </FormControl>
-                    {/* <FormDescription>
-                    This is your public display name.
-                    </FormDescription> */}
-                    <FormMessage />
                 </FormItem>
-                )}
-            />
-        )
-    }
+            )}
+        />
+    );
+});
+
+function AddToClosetTagComponent({ tags }: AddToClosetTagComponentProps) {
+    // Dynamically create a schema from the array
+    const formSchema = z.object(
+        tags.reduce((acc, fieldName) => {
+            acc[fieldName] = z.string().min(3).max(25);
+            return acc;
+        }, {} as { [key: string]: z.ZodType<string, z.ZodTypeDef, string> })
+    );
+
+    const form = useForm<z.infer<typeof formSchema>>({
+        resolver: zodResolver(formSchema),
+        defaultValues: tags.reduce((acc, fieldName) => { 
+            acc[fieldName] = "";
+            return acc;
+        }, {} as Record<string, string>)
+    });
+
+    const handleSubmit = useCallback((values: z.infer<typeof formSchema>) => {
+        console.log("Form is submitted!", values);
+    }, []);
 
     return (
-        <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-            {tags.map((tag) => closetFormItem(tag))}
+        <>
+            <Form {...form}>
 
-            <div className="flex justify-center items-center">
-                <Button type="submit" >Add to my closet!</Button>
+                
+            {/* Image div */}
+            <div className="flex justify-center items-center m-4">
+            {/* image prompt */}
+                <img src={blank} className='rounded-xl '/>
             </div>
-            </form>
-        </Form>
-    )
 
+
+
+
+
+                <form onSubmit={form.handleSubmit(handleSubmit)}>
+                    {tags.map((tag) => (
+                        <MemoizedFormField key={tag} tag={tag} control={form.control} />
+                    ))}
+                    <Button type="submit" className="w-full">
+                        Submit
+                    </Button>
+                </form>
+            </Form>
+        </>
+    );
 }
 
-export default addToClosetTagComponent
+export default AddToClosetTagComponent;

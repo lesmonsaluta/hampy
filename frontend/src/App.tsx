@@ -13,38 +13,23 @@ import './App.css'
 import { supabase } from './clients/supabaseClient'
 
 
-// function PrivateRoute({ children } : any) {
-//   const [session, setSession] = React.useState<Session | null>(null)
-//   supabase.auth.getSession().then(({ data: { session } }) => {
-//     setSession(session)
-//   })
-//   console.log("Checking if logged in")
-//   if (session) {
-//     console.log("Success!")
-//   }
-
-//   return session ? children : <Navigate to='/login' />
-// }
-
 async function secureLoader() {
-  // Try to fetch the current session
-  const { data: { session }, error } = await supabase.auth.getSession();
   // const session = "fake"
   // const session = null
   // const error = undefined
 
-  // Log for debugging purposes
-  console.log("Checking if logged in");
+  // Try to fetch the current session
+  const { data: { session }, error } = await supabase.auth.getSession();
+
+  console.log("Checking if logged in...");
   if (error) {
     throw error
   }
   if (session) {
     console.log("Success!");
-    // If a session exists, no need to redirect, the loader can return undefined or some data
     return null;
   } else {
     console.log("No session found, redirecting to login.");
-    // If there is no session, return an object with a redirect property
     return redirect("/login");
   }
 }
@@ -54,17 +39,15 @@ async function publicLoader() {
   const { data: { session }, error } = await supabase.auth.getSession();
 
   // Log for debugging purposes
-  console.log("Checking if logged in");
+  console.log("Checking if logged in...");
   if (error) {
     throw error
   }
   if (session) {
-    console.log("Session found, logging you in");
-    // If there is no session, return an object with a redirect property
+    console.log("Session found, logging you in...");
     return redirect("/home");
   } else {
     console.log("No session found, let's log in!");
-    // If a session exists, no need to redirect, the loader can return undefined or some data
     return null;
   }
 }
@@ -120,39 +103,12 @@ const router = createBrowserRouter([
   },
 ])
 
-const checkAuthHealth = async () => {
-  // if (error) {
-  //   console.error('Failed to fetch user:', error.message);
-  //   return;
-  // }
-
-  // if (user) {
-  //   console.log('Successfully fetched user:', user);
-  // } else {
-  //   console.log('No user is currently logged in.');
-  // }
-};
 
 
 function App() {
-  checkAuthHealth()
-
   return (
     <RouterProvider router={router} />
     )
   }  
 export default App
   
-  
-  // <div className="App">
-  //   <Routes>
-  //     <Route path="/" element={<Navigate replace to="/home" />} />
-  //     <Route path="/home" element= { session ? <HomeScreen /> : <Navigate replace to="/login" /> } />
-  //     <Route path="/login" element= { <LoginScreen /> } />
-  //     <Route path="/signup" element= { <SignupScreen /> } />
-  //     <Route path="/closet" element= { <FullCloset /> } />
-  //     <Route path="/hamper" element= { <FullHamper /> } />
-  //     <Route path="/addtocloset" element= { <AddToCloset /> } />
-  //     {/* <Route path="/sandbox" element = { <Sandbox /> } /> */}
-  //   </Routes>
-  // </div>

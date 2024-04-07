@@ -6,8 +6,8 @@ import {
 
 import cloth1 from '../assets/BAI.png';
 import cloth2 from '../assets/BAI.png';
+import React from "react";
 
-// Step 1: Define the interface
 interface DamitItem {
   image: string;
   tags: string[];
@@ -28,22 +28,12 @@ const damits: DamitItem[] = [
         date_added: "Kahapon",
         selected: false,
       },
-      // {
-    //     image: cloth1,
-    //     tags: ["Black", 'Lacoste'],
-    //     date_added: "Kahapon",
-    // },
-    // {
-    //     image: cloth1,
-    //     tags: ["Black", 'Lacoste'],
-    //     date_added: "Kahapon",
-    // },
 ];
 
 
 function CreateCard(damit: DamitItem) {
   return (
-      <Card key={crypto.randomUUID()}>
+      <Card key={React.useId()}>
           <CardHeader>
               <img src={damit.image} alt="Clothing item" className="rounded-xl"/>
               <CardDescription>{damit.tags.join(', ')}</CardDescription>
