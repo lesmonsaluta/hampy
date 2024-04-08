@@ -1,10 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit";
-import selectionReducer from "./selectionSlice";
+import hamperSelectionReducer from "./hamperSelectionSlice";
+import closetSelectionReducer from "./closetSelectionSlice"
 
 // this store is being provided to the main app
 export const store = configureStore({
   reducer: {
-    counter: selectionReducer,
+    hamperSelection: hamperSelectionReducer,
+    closetSelection: closetSelectionReducer,
   },
 });
 

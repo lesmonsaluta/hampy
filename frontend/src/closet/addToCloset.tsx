@@ -24,16 +24,11 @@ function addToCloset() {
                     {/* dynamically changing, 
                     if portrait, 2x2 image then scrollable rows underneath
                     if landscape, 2x2 image on left, scrollable on right*/}
-                    <div>
+                    {/* tags and picture area */}
+                    <div className='m-4'>
+                        <AddToClosetTagComponent tags={tags}/>
+                    </div>        
 
-
-                        {/* tags area */}
-                        <div className='m-4'>
-                            {/* rows of tags */}
-                            <AddToClosetTagComponent tags={tags}/>
-                        </div>
-                    </div>
-                
                 </div>
             </div>
         </>

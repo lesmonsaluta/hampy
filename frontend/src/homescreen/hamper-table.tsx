@@ -15,7 +15,7 @@ import React from "react";
 
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from ".././redux-components/store.ts";
-import { append, remove } from "../redux-components/selectionSlice.ts"
+import { hamperAppend, hamperRemove } from "../redux-components/hamperSelectionSlice.ts"
 
 interface DamitItem {
     id: string;
@@ -64,23 +64,23 @@ const damits: DamitItem[] = [
 ]
 
 function CreateRow(damit: DamitItem) {
-  const selection = useSelector((state: RootState) => state.counter.selected);
-  const mode = useSelector((state: RootState) => state.counter.select_mode);
+  const selection = useSelector((state: RootState) => state.hamperSelection.hamperSelected);
+  const selectMode = useSelector((state: RootState) => state.hamperSelection.hamperSelect_mode);
 
   const dispatch = useDispatch<AppDispatch>();
 
   function dispatchHandler( id  : string) {
     console.log(id)
     if (selection.includes(id)) {
-      dispatch(remove(id))
+      dispatch(hamperRemove(id))
     } else {
-      dispatch(append(id))
-    }
+      dispatch(hamperAppend(id))
+    } 
   }
     
   return (
       <TableRow key={React.useId()}>
-      {mode && <TableCell>
+      {selectMode && <TableCell>
         <input type="checkbox" 
           id={damit.id} 
           onChange={() => dispatchHandler(damit.id)}
@@ -100,14 +100,14 @@ function CreateRow(damit: DamitItem) {
 }
 
 function HamperTable() {
-  const mode = useSelector((state: RootState) => state.counter.select_mode);
+  const selectMode = useSelector((state: RootState) => state.hamperSelection.hamperSelect_mode);
   
   return (
   <>
     <Table className="">
       <TableHeader>
         <TableRow>
-          {mode && <TableHead />}
+          {selectMode && <TableHead />}
           <TableHead className="w-1/3">Image</TableHead>
           <TableHead>Tags</TableHead>
           <TableHead className="text-right">Date Added</TableHead>
