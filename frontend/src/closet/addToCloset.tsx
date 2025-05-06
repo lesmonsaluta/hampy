@@ -14,9 +14,9 @@ function addToCloset() {
                 <Header />
 
                 {/* white area */}
-                <div className='flex-1 justify-center items-align mx-4 overflow-auto bg-gray-100 lg:mx-auto y-2 lg:w-full b max-w-7xl rounded-xl grow mb-8 '>
+                <div className='justify-center flex-1 mx-4 mb-8 overflow-auto bg-gray-100 items-align lg:mx-auto y-2 lg:w-full b max-w-7xl rounded-xl grow '>
                     {/* top row */}
-                    <div className="flex w-full bg-blue-400 items-center max-h-24 h-1/6 rounded-xl items-center">
+                    <div className="flex items-center w-full bg-blue-400 max-h-24 h-1/6 rounded-xl">
                         {/* add actual white box */}
                         <span className="flex-1 m-4 text-2xl ">Add to my closet!</span>
                     </div>
